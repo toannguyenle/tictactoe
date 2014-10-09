@@ -5,19 +5,61 @@ window.onload = function(){
 
 // THE GAME TIC TAC TOE
 function initializeGame(){
-  // NOW FOR CLOSURE CLICK WHATEVR
-  // var play = function
+  //GlobalArray to store User's moves on board, each user board is an array in a global array of 2 elements
+  var userBoard = [["0","0","0","0","0","0","0","0","0"],["0","0","0","0","0","0","0","0","0"]];
+  var winningMoves = ["111000000","000111000","000000111","100100100","010010010","001001001","100010001","001010100"];
+  // Counter to make sure alternate between noughts and crosses
+  var count = 0;
+
+  // THE JUDGE
+  function judgeGame(obj){
+    var result = false;
+    for (var i = 0; i < winningMoves.length; i++) {
+      var winPoint = 0;
+      // break into array
+      var winMove = winningMoves[i].split("");
+      for (var j = 0; j < winMove.length; j++) {
+        if (winMove[j]*obj[j] == 1) {
+          winPoint = winPoint + 1;
+        }
+        if (winPoint == 3) {
+          // to break from both loop if we found a winning move
+          result = true;
+          i = winningMoves.length;
+          break;
+        }
+      };
+    };
+    return result;
+  };
+
+  // CLOSURE chooseTile
+  var chooseTile = function(){
+  
+    return function(){
+      // to alternate between noughts and crosses
+      this.innerHTML = ((count%2)==0) ? "X":"O";
+      count++;
+      // Make the tile not clickeable after a move is done
+      this.style.pointerEvents = "none";
+      //Update user's board with their move by reading the tile ID and the text value inside the tile
+      userBoard[count%2][this.id.substr(this.id.length - 1)]=1;
+      // person judging
+      if (judgeGame(userBoard[0])) {
+        alert("Player O wins!");
+      }
+      if (judgeGame(userBoard[1])) {
+        alert("Player X wins!");
+      };
+    };
+  };
+
 
   // CLICK to Change AND Retain Value
   function clickTile(){
-    var count = 0;
   for (var cellId = 0; cellId < 9; cellId++) {
       var currentCell = document.getElementById("c"+cellId);
-      currentCell.addEventListener("click", function()
-      {
-          this.innerHTML = ((count%2)==0) ? "X":"O";
-          count++;
-      });
+      currentCell.addEventListener("click", chooseTile());
       };
   };
 
@@ -38,8 +80,7 @@ function initializeGame(){
       });
       };
   };
-
-  //SAMPLE FUNCTION CALL}
+  // SAMPLE FUNCTION CALL}
   clickTile();
   hoverTile();
 };
