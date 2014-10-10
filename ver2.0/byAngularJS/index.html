@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="myTTTapp">
+<head>
+</head>
+  <!-- GOOGLE FONTS FOR NOUGHTS AND CROSSES Xs 'n Os -->
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <!-- MAIN STYLESHEET -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- ANGULAR JS -->
+  <script src="script/angular.min.js"></script>
+  <!-- MAIN JS FILE -->
+  <script src="script/main.js"></script>
+<body>
+
+  <div class="section group"><p class="header">
+    TIC<br>TAC<br>TOE</p>
+  </div>
+  <div class="section group" ng-controller="TTTCtrl">
+    <!-- TIC TAC TOE BOARD -->
+    <div class="col tile" ng-repeat="tile in gameBoard" ng-click="chooseTile(tile)" ng-class="{xclass: tile.status=='X', oclass:tile.status=='O'}">{{tile.name}} {{tile.status}}</div>
+  </div>
+
+</body>
+</html>

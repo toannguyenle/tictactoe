@@ -1,0 +1,92 @@
+/*MOBILE DEVICE CUSTOM*/
+@media handheld and (min-width: 480px) {
+  .container{
+    height: 360px;
+    width: 360px;
+    margin: 0 auto; 
+    border: 0;
+    text-align: center;
+    background-color: blue;
+  }
+  .box{
+    width: 100px; 
+    height:100px; 
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 5px;
+  }
+  .defaultcolor{
+    background-color: red;
+    height: 100px;
+    width: 100px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 50pt;
+  }
+
+  .header{
+    text-align: left;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 20pt;
+    color: black;
+    width: 360px;
+    display: table-cell;
+  }
+}
+/*normal screen*/
+.container{
+  height: 458px;
+  width: 458px;
+  margin: 0 auto; 
+  border: 0;
+  text-align: center;
+}
+
+.box{
+  width:150px; 
+  height:150px; 
+  border: 2px solid white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+
+.defaultcolor{
+  background-color: red;
+  height: 150px;
+  width: 150px;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 100pt;
+}
+
+.header{
+  text-align: left;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 35pt;
+  color: black;
+  width: 458px;
+  display: table-cell;
+}
+.author{
+  font-size: 10px;
+
+}
+
+/*the usual suspects begin*/
+.float_right{
+  float: right;
+}
+.float_left{
+  float: left;
+}
+/*needed to cause auto expansion of container div*/
+.clearboth{
+  clear: both;
+}
+/*the usual suspects end*/
+html {
+    height: 100%;
+    }
+
+body {
+    height: 100%;
+    }
