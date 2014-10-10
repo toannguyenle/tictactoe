@@ -59,14 +59,14 @@
   background-position: center;
   background-repeat: no-repeat;
   /*Make the tile not clickeable after a move is done*/
-  pointer-events : "none";
+  /*pointer-events : "none";*/
 }
 .oclass{
   background-image: url('../images/O.png');
   background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
-  pointer-events : "none";
+  /*pointer-events : "none";*/
 }
 /*the usual suspects end*/
 html {

@@ -17,7 +17,16 @@
   </div>
   <div class="section group" ng-controller="TTTCtrl">
     <!-- TIC TAC TOE BOARD -->
-    <div class="col tile" ng-repeat="tile in gameBoard" ng-click="chooseTile(tile)" ng-class="{xclass: tile.status=='X', oclass:tile.status=='O'}">{{tile.name}} {{tile.status}}</div>
+    <div
+      class="col tile"
+      ng-repeat="tile in gameBoard"
+      ng-click="chooseTile(tile)"
+      ng-class="{xclass: tile.status=='X', oclass:tile.status=='O'}"
+      ng-mouseover="hoverTile()"
+      ng-style="tileStyle">
+        {{tile.name}} {{tile.status}}
+    </div>
+
   </div>
 
 </body>
