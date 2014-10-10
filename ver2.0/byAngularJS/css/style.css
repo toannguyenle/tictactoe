@@ -1,14 +1,15 @@
 /*normal screen*/
-.container{
+.section{
   clear: both;
   padding: 0px;
-  margin: 0px;
+  margin: 0px auto;
+  width: 400px;
 }
 
 .header{
   text-align: left;
   font-family: 'Varela Round', sans-serif;
-  font-size: 35pt;
+  font-size: 50px;
   color: black;
   display: table-cell;
   width: 100%;
@@ -45,70 +46,47 @@
   width: 32.26%;
   background-color: red;
   position: relative;
-  z-index: 9999;
+  width: 128px;
+  height: 128px;
 } 
-.tile:before{
+/*TO auto size - DISABLED*/
+/*.tile:before{
   content: "";
   display: block;
   padding-top: 100%;
-  z-index: -9999;
-}
+}*/
 .xclass{
   background-image: url('../images/X.png');
   background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
-  /*Make the tile not clickeable after a move is done*/
-  /*pointer-events : "none";*/
 }
 .oclass{
   background-image: url('../images/O.png');
   background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
-  /*pointer-events : "none";*/
 }
-/*the usual suspects end*/
-html {
-    height: 100%;
-    }
+/*Style when hovered*/
+.hoverclass{
+  background-color: pink;
+}
 
-body {
-    height: 100%;
-    }
-
+.lossClass{
+  opacity: 0.2;
+}
 
 /*MOBILE DEVICE CUSTOM*/
-/*@media only screen and (max-width: 480px) {
-  .section{
-    height: 360px;
-    width: 360px;
-    margin: 0 auto; 
-    border: 0;
-    text-align: center;
-    background-color: blue;
+@media (max-width: 450px){
+  .section {
+    width: 350px;
+    margin: 0 auto;
   }
-  .box{
-    width: 100px; 
-    height:100px; 
-    border: 1px solid black;
-    text-align: center;
-    border-radius: 5px;
-  }
-  .defaultcolor{
-    background-color: red;
-    height: 100px;
-    width: 100px;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 50pt;
-  }
-
   .header{
-    text-align: left;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 20pt;
-    color: black;
-    width: 360px;
-    display: table-cell;
+    font-size: 25px;
   }
-}*/
+  .tile{
+    width: 113px;
+    height: 113px;
+  }
+}

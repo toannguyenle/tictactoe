@@ -16,16 +16,22 @@
   ];
 
   //Array to store User's moves on board, each user board is an array in a global array of 2 elements
-  var userBoard = [["0","0","0","0","0","0","0","0","0"],["0","0","0","0","0","0","0","0","0"]];
+  var userBoard = [["0","0","0","0","0","0","0","0","0"],
+                   ["0","0","0","0","0","0","0","0","0"]];
   // Standard set of winning possibilities - only 8
-  var winningMoves = ["111000000","000111000","000000111","100100100","010010010","001001001","100010001","001010100"];
+  var winningMoves = ["111000000",
+                      "000111000",
+                      "000000111",
+                      "100100100",
+                      "010010010",
+                      "001001001","100010001","001010100"];
   // Counter to make sure alternate between noughts and crosses
   $scope.count = 0;
   // Tie in case
   var tie = false;
 
-  // Tile Style
-  $scope.tileStyle = "";
+  // Winning Scenario Based on winningMoves index
+  $scope.winScene = "";
 
   // THE JUDGE
   var judgeGame = function (obj){
@@ -38,11 +44,16 @@
         if (winMove[j]*obj[j] == 1) {
           winPoint++;
         }
-        console.log(winPoint);
         if (winPoint == 3) {
           // to break from both loop if we found a winning move
           result = true;
+
+          // Assign winning scenario for winning rendering
+          $scope.winScene=i;
+
+          // To get out of the first loop
           i = winningMoves.length;
+
           break;
         }
       };
@@ -56,6 +67,8 @@
 
   //chooseTile
   $scope.chooseTile = function(thisTile){
+    if (thisTile.status=="H"){
+      isClicked = true;
     // to alternate between noughts and crosses
     if (($scope.count % 2) == 0) {
       thisTile.status = 'X';
@@ -66,30 +79,65 @@
       thisTile.status = 'O';
       // Update user2 board
       userBoard[0][this.$index] = 1;}
+      // update move counter
     $scope.count++;
 
     // Let's find out the winner
     if (judgeGame(userBoard[1])) {
-      alert("Player X wins!");
+      announcer("X");
       tie = false;
     }
     if (judgeGame(userBoard[0])) {
-      alert("Player O wins!");
+      announcer("O");
       tie = false;
     };
     if (($scope.count==9)&(tie)) {
-      alert("TIE!");
+      announcer("TIE");
+    };
+    }
+  };
+
+  // WINNING RENDERING AND ANNOUCEMENT
+  var announcer = function(result){
+    if (result=="TIE") {
+      // this.status = 'L'
+      alert("TIE GAME!");
+    };
+    if (result == "X") {
+      // this.status = 'L'
+      updateBoard();
+    };
+    if (result == "O") {
+      updateBoard();
     };
   };
 
+  // RENDER BOARD WITH WINNING COMBINATION
+  var updateBoard = function () {
+    var winMove = winningMoves[$scope.winScene].split("");
+    for (var i = 0; i < winMove.length; i++) {
+      if (winMove[i] == "0") {
+        $scope.gameBoard[i].status = "L";
+      };
+    };
+  };
 
-  //  MOUSE OVER to Change Color AND returns Color when MOUSE OUT
-  $scope.hoverTile = function (){
+  //  MOUSE OVER to Change Color
+  $scope.mouseEnterTile = function (thisTile){
+    if (thisTile.status == "0") {
+      thisTile.status = "H";
+    };
+  };
 
-    // MOUSE OVER TO SEE WHATS THE SELECTION IS
-      // $scope.tileStyle = {"background-color" : "pink"};
-
-    // MOUSE OUT TO RETURN ORIGINAL COLOR
-      // $scope.tileStyle = {"background-color" : "red"};
+  // RETURN origin tile when mouse leave
+  $scope.mouseLeaveTile = function (thisTile){
+    if (thisTile.status == "H") {
+      thisTile.status = "0";
+    };
   };
 });
+
+
+
+
+
