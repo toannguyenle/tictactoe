@@ -1,8 +1,4 @@
 /*normal screen*/
-div{
-  font-family: 'Varela Round', sans-serif;
-  font-size: 20px;
-}
 .section{
   clear: both;
   padding: 0px;
@@ -47,7 +43,6 @@ div{
 
 /*  GRID OF THREE  */
 .tile {
-  width: 32.26%;
   background-color: red;
   position: relative;
   width: 128px;

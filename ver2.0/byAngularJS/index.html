@@ -15,19 +15,40 @@
   <div class="section group"><p class="header">
     TIC<br>TAC<br>TOE</p>
   </div>
+
+<!-- USER INPUT NAME AND GAME MODE -->
+    <!-- Make sure to turn of part asking user name after first play -->
   <div class="section group" ng-controller="TTTCtrl">
+    <div ng-model="isFirstPlay" ng-hide="isFirstPlay">
+      <input ng-model="player[0].name" placeholder="Player A Name"/>
+      <select ng-model="player[0].tilechoice">
+        <option value="X" selected>X</option>
+        <option value="O">O</option>
+      </select>
+      <br />
+      <input ng-model="player[1].name" placeholder="Player B Name"/>{{(tileChoice=='O') ? ' will play  X':' will play O'}}<br />
+      <button ng-click="[updatePlayer(),isFirstPlay='true']">PLAY</button>
+    </div>
+    <div>
+      <p>TOTAL SCORE</p>
+      <p>PLAYER {{player[0].name}} : {{player[0].score}} : {{player[0].time/1000}}</p>
+      <p>PLAYER {{player[1].name}} : {{player[1].score}} : {{player[1].time/1000}}</p>
+      <button ng-click="reloadGame()">REPLAY</button>
+    </div>
+
+  <div class="section group">
     <!-- TIC TAC TOE BOARD -->
-    <div
+    <div class="col tile"
       ng-repeat="tile in gameBoard"
-      class="col tile"
-      ng-class="{xclass: tile.status=='X', oclass:tile.status=='O', hoverclass: tile.status=='H', lossClass: tile.status == 'L'}"
+      ng-class="{xclass: tile.status=='X', oclass:tile.status=='O', hoverclass: tile.status=='H', lossClass: tile.name=='lossClass'}"
       ng-click="chooseTile(tile)"
       ng-mouseenter="mouseEnterTile(tile)"
       ng-mouseleave="mouseLeaveTile(tile)"
+      ng-show="isFirstPlay"
       >
     </div>
-
   </div>
+
 
 </body>
 </html>
