@@ -3,6 +3,29 @@ div{
   font-family: 'Varela Round', sans-serif;
   font-size: 20px;
 }
+input{
+  height: 30px;
+  width: 222px;
+  font-size: 20px;
+  font-family: 'Varela Round', sans-serif;
+  margin: 7px;
+}
+button{
+  height: 36px;
+  width: 100px;
+  font-size: 20px;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 5px;
+  background-color: white;
+}
+.announcer select{
+  width: 100px;
+  padding: 5px;
+  font-size: 20px;
+  border:0;
+  height: 36px;
+  font-family: 'Varela Round', sans-serif;
+}
 .section{
   clear: both;
   padding: 0px;
@@ -13,10 +36,18 @@ div{
 .header{
   text-align: left;
   font-family: 'Varela Round', sans-serif;
-  font-size: 50px;
+  font-size: 35px;
   color: black;
   display: table-cell;
   width: 100%;
+}
+.header.col.tile{
+  text-align: left;
+  background-color: white;
+}
+.header.col.tile.score{
+  text-align: center;
+  font-size: 20px;
 }
 
 /*  COLUMN SETUP  */
@@ -80,6 +111,27 @@ div{
   opacity: 0.2;
 }
 
+.announcer{
+  z-index: 9999;
+  position: relative;
+  display: inline-table;
+  width: 350px;
+  height: 100px;
+  background-color: rgba(0,0,0,0.8);
+  margin:0;
+  border-radius: 10px;
+  top:-248px;
+  left: 23px;
+  color: white;
+  text-align: center;
+}
+.resetButton{
+  background-color: gray;
+  width: 50px;
+}
+div.announcer.userInput{
+  text-align: left;
+}
 /*MOBILE DEVICE CUSTOM*/
 @media (max-width: 450px){
   .section {

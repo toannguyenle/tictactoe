@@ -10,31 +10,23 @@
   <script src="script/angular.min.js"></script>
   <!-- MAIN JS FILE -->
   <script src="script/main.js"></script>
-<body>
-
-  <div class="section group"><p class="header">
-    TIC<br>TAC<br>TOE</p>
+<body ng-controller="TTTCtrl">
+  <!-- HEADER - GAME SCORE BOARD -->
+  <div class="section group">
+    <p class="header col tile">TIC<br>TAC<br>TOE</p>
+    <p class="header col tile score" ng-show="isFirstPlay">
+      {{isFirstPlayerTurn?'&#x265f;':''}}{{player[0].name}}-{{player[0].tilechoice}}
+      <img ng-hide="player[0].score<=player[1].score" src="images/wincheck.png"height="20" width="20"><br/>
+      {{player[0].score}}<br />
+      {{player[0].waitTime/1000+' s'}}
+    </p>
+    <p class="header col tile score" ng-show="isFirstPlay">
+      {{isFirstPlayerTurn?'':'&#x265f;'}}{{player[1].name}}-{{(player[0].tilechoice=='X')? 'O':'X'}}
+      <img ng-hide="player[1].score<=player[0].score" src="images/wincheck.png"height="20" width="20"><br/>
+      {{player[1].score}}<br />
+      {{player[1].waitTime/1000+' s'}}
+    </p>
   </div>
-
-<!-- USER INPUT NAME AND GAME MODE -->
-    <!-- Make sure to turn of part asking user name after first play -->
-  <div class="section group" ng-controller="TTTCtrl">
-    <div ng-model="isFirstPlay" ng-hide="isFirstPlay">
-      <input ng-model="player[0].name" placeholder="Player A Name"/>
-      <select ng-model="player[0].tilechoice">
-        <option value="X" selected>X</option>
-        <option value="O">O</option>
-      </select>
-      <br />
-      <input ng-model="player[1].name" placeholder="Player B Name"/>{{(tileChoice=='O') ? ' will play  X':' will play O'}}<br />
-      <button ng-click="[updatePlayer(),isFirstPlay='true']">PLAY</button>
-    </div>
-    <div>
-      <p>TOTAL SCORE</p>
-      <p>PLAYER {{player[0].name}} : {{player[0].score}} : {{player[0].time/1000}}</p>
-      <p>PLAYER {{player[1].name}} : {{player[1].score}} : {{player[1].time/1000}}</p>
-      <button ng-click="reloadGame()">REPLAY</button>
-    </div>
 
   <div class="section group">
     <!-- TIC TAC TOE BOARD -->
@@ -44,8 +36,24 @@
       ng-click="chooseTile(tile)"
       ng-mouseenter="mouseEnterTile(tile)"
       ng-mouseleave="mouseLeaveTile(tile)"
-      ng-show="isFirstPlay"
       >
+    </div>
+    <!-- REPLAY AND ANNOUNCER -->
+    <div class="announcer" ng-show="isGameOver"><br/>Congratulations,
+      {{player[gameWinnerID].name}}!<br/>
+    <button ng-click="reloadGame()">REPLAY</button>
+    <button class="resetButton" ng-click="resetGame()">&#x21bb;</button>
+    </div>
+    <!-- USER INPUT -->
+    <div  class="announcer userInput" ng-model="isFirstPlay" ng-hide="isFirstPlay">
+      <input ng-model="player[0].name" placeholder="Player 1 Name"/>
+      <select ng-model="player[0].tilechoice">
+        <option value="X" selected>X</option>
+        <option value="O">O</option>
+      </select><br />
+      <input ng-model="player[1].name" placeholder="Player 2 Name"/>
+      <button ng-click="[updatePlayer(),isFirstPlay='true',reloadGame()]" 
+      ng-disabled="player[0].name.length==0 || player[1].name.length==0">START</button>
     </div>
   </div>
 
