@@ -5,23 +5,16 @@ div{
 }
 input{
   height: 30px;
-  width: 222px;
+  width: 200px;
   font-size: 20px;
   font-family: 'Varela Round', sans-serif;
-  margin: 7px;
+  margin: 2px;
 }
 button{
-  height: 36px;
-  width: 100px;
+  height: 30px;
+  width: 80px;
   font-size: 20px;
   font-family: 'Varela Round', sans-serif;
-  border-radius: 5px;
-  background-color: white;
-}
-.container{
-  width: 30%;
-  float:left;
-  margin: 0 1%;
 }
 .section{
   clear: both;
@@ -30,14 +23,6 @@ button{
   width: 400px;
 }
 
-.announcer select{
-  width: 100px;
-  padding: 5px;
-  font-size: 20px;
-  border:0;
-  height: 36px;
-  font-family: 'Varela Round', sans-serif;
-}
 .header{
   text-align: left;
   font-family: 'Varela Round', sans-serif;
@@ -129,65 +114,7 @@ button{
   left: 23px;
   color: white;
   text-align: center;
-}
-.resetButton{
-  background-color: gray;
-  width: 50px;
-}
-.chatContainerBox{
-  clear: both;
-  z-index: 9999;
-  position: relative;
-  display: inline-table;
-  width: 395px;
-  height: 200px;
-  background-color: rgba(0,0,0,0.4);
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-  margin: 0px auto;
-}
-form.typeBox{
-  width: 200px;
-  margin: 5px auto;
-}
-input.typeBox {
-  height: 30px;
-  width: 200px;
-  font-size: 12px;
-  font-family: 'Courier';
-  background-image:url('../images/up.png');
-  opacity: 0.5;
-  background-size: 30px 30px;
-  background-repeat: no-repeat;
-  background-position: right; 
-}
-div.announcer.userInput{
-  text-align: left;
-}
-.section.group.chatBox{
-  width: 200px;
-  height: 480px;
-}
-div.chatContainerBox{
-  display: inline-block;
-  border-radius: 10px;
-  height: 30px;
-  width: 200px;
-  vertical-align: middle;
-  word-wrap: break-word;
-  font-family: 'Courier';
-  font-size: 12px;
-  text-align: left;
-  color: black;
-  line-height: 30px;
-  padding: 0 5px;
-  margin: 3px;
-  background-color: lightblue;
-}
-div.textRightAlign{
-  text-align: right;
-  background-color: lightgray;
+  visibility: hidden;
 }
 /*MOBILE DEVICE CUSTOM*/
 @media (max-width: 450px){
