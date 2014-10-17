@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="myTTTapp">
+<head>
+</head>
+  <!-- GOOGLE FONTS FOR NOUGHTS AND CROSSES Xs 'n Os -->
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <!-- MAIN STYLESHEET -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- ANGULAR JS -->
+  <script src="script/angular.min.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+  <!-- MAIN JS FILE -->
+  <script src="script/main.js"></script>
+<body ng-controller="TTTCtrl">
+  <!-- HEADER - GAME SCORE BOARD -->
+  <div class="section group">
+    <p class="header col tile">TIC<br>TAC<br>TOE</p>
+    <p class="header col tile score" ng-show="isFirstPlay">
+      {{isFirstPlayerTurn?'&#x265f;':''}}{{gameContainer.FBplayer[0].name}}-{{gameContainer.FBplayer[0].tilechoice}}
+      <img ng-hide="gameContainer.FBplayer[0].score<=gameContainer.FBplayer[1].score" src="images/wincheck.png"height="20" width="20"><br/>
+      {{gameContainer.FBplayer[0].score}}<br />
+      {{gameContainer.FBplayer[0].waitTime/1000+' s'}}
+    </p>
+    <p class="header col tile score" ng-show="isFirstPlay">
+      {{isFirstPlayerTurn?'':'&#x265f;'}}{{gameContainer.FBplayer[1].name}}-{{(gameContainer.FBplayer[0].tilechoice=='X')? 'O':'X'}}
+      <img ng-hide="gameContainer.FBplayer[1].score<=gameContainer.FBplayer[0].score" src="images/wincheck.png"height="20" width="20"><br/>
+      {{gameContainer.FBplayer[1].score}}<br />
+      {{gameContainer.FBplayer[1].waitTime/1000+' s'}}
+    </p>
+  </div>
+
+  <div class="section group">
+    <!-- TIC TAC TOE BOARD -->
+    <div class="col tile"
+      ng-repeat="tile in gameContainer.FBgameBoard"
+      ng-class="{xclass: tile.status=='X', oclass:tile.status=='O', hoverclass: tile.status=='H', lossClass: tile.name=='lossClass'}"
+      ng-click="chooseTile(tile)"
+      ng-mouseenter="mouseEnterTile(tile)"
+      ng-mouseleave="mouseLeaveTile(tile)"
+      >
+    </div>
+    <!-- REPLAY AND ANNOUNCER -->
+    <div class="announcer" ng-model="gameContainer.FBisGameOver" ng-show="gameContainer.FBisGameOver"><br/>Congratulations,
+      {{gameContainer.FBplayer[gameWinnerID].name}}!<br/>
+    <button ng-click="reloadGame()">REPLAY</button>
+    <button class="resetButton" ng-click="resetGame()">&#x21bb;</button>
+    </div>
+    <!-- USER INPUT -->
+    <div  class="announcer userInput" ng-model="isFirstPlay" ng-hide="isFirstPlay">
+      <input ng-model="player[0].name" placeholder="Player 1 Name" ng-value="player[0].name"/>
+      <select ng-model="player[0].tilechoice">
+        <option value="X" selected>X</option>
+        <option value="O">O</option>
+      </select><br />
+      <input ng-model="player[1].name" placeholder="Player 2 Name"/>
+      <button ng-click="[updatePlayer(),isFirstPlay='true',reloadGame()]" 
+      ng-disabled="player[0].name.length==0 || player[1].name.length==0">START</button>
+    </div>
+  </div>
+    <!-- CHAT BOX -->
+  <div class="announcer userInput" >
+    <div class="section group chatBox" >
+      <div class="chatContainerBox" ng-repeat="c in allcomments"
+      ng-class="($index%2)==0? 'textRightAlign':''">
+        {{c.userComment}}
+      </div>
+    </div>
+    <form>
+    <input ng-keyup="$event.keyCode == 13 && addComment()" type="text" ng-model="userComment" class="typeBox" placeholder="shout out box..."/></form>
+  </div>
+
+</body>
+</html>
