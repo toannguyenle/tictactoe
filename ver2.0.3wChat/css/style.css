@@ -4,24 +4,29 @@ div{
   font-size: 20px;
 }
 input{
-  height: 30px;
-  width: 222px;
+  height: 50px;
+  width: 327px;
   font-size: 20px;
   font-family: 'Varela Round', sans-serif;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
   margin: 7px;
 }
 button{
   height: 36px;
-  width: 100px;
+  width: 330px;
   font-size: 20px;
   font-family: 'Varela Round', sans-serif;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: white;
+  margin: 0 auto 7px auto;
 }
 .container{
-  width: 30%;
-  float:left;
-  margin: 0 1%;
+  width: 32.26%;
+  position: relative;
+  float: left;
+  display: block;
 }
 .section{
   clear: both;
@@ -161,9 +166,8 @@ input.typeBox {
   background-size: 30px 30px;
   background-repeat: no-repeat;
   background-position: right; 
-}
-div.announcer.userInput{
-  text-align: left;
+  background-color: rgba(0,0,0,0.2);  
+  border-radius: 15px;
 }
 .section.group.chatBox{
   width: 200px;
@@ -175,7 +179,6 @@ div.chatContainerBox{
   height: 30px;
   width: 200px;
   vertical-align: middle;
-  word-wrap: break-word;
   font-family: 'Courier';
   font-size: 12px;
   text-align: left;
@@ -188,6 +191,28 @@ div.chatContainerBox{
 div.textRightAlign{
   text-align: right;
   background-color: lightgray;
+}
+span.chatUsername{
+  font-size: 7px;
+}
+div.userContainerBox{
+  display: inline-block;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  vertical-align: middle;
+  font-family: 'Courier';
+  font-size: 12px;
+  text-align: left;
+  color: black;
+  line-height: 30px;
+  padding: 0 5px;
+  margin: 3px;
+  background-color: lightgray;
+  float: left;
+}
+div.userContainerBox:hover{
+  background-color: lightgreen;
 }
 /*MOBILE DEVICE CUSTOM*/
 @media (max-width: 450px){
