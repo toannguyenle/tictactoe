@@ -1,0 +1,360 @@
+/*normal screen*/
+div{
+  font-family: 'Varela Round', sans-serif;
+  font-size: 20px;
+}
+input{
+  height: 50px;
+  width: 327px;
+  font-size: 20px;
+  font-family: 'Varela Round', sans-serif;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  margin: 7px;
+}
+button{
+  height: 36px;
+  width: 330px;
+  font-size: 20px;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 10px;
+  background-color: white;
+  margin: 0 auto 7px auto;
+}
+.container{
+  width: 32.26%;
+  position: relative;
+  float: left;
+  display: block;
+}
+.section{
+  clear: both;
+  padding: 0px;
+  margin: 0px auto;
+  width: 400px;
+}
+
+.announcer select{
+  width: 100px;
+  padding: 5px;
+  font-size: 20px;
+  border:0;
+  height: 36px;
+  font-family: 'Varela Round', sans-serif;
+}
+.header{
+  text-align: left;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 35px;
+  color: black;
+  display: table-cell;
+  width: 100%;
+}
+.header.col.tile{
+  text-align: left;
+  background-color: white;
+}
+.header.col.tile.score{
+  text-align: center;
+  font-size: 20px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float:left;
+  margin: 0% 0 0% 0%;
+  border: 2px solid white;
+  text-align: center;
+  border-radius: 10px;
+}
+.col:first-child { margin-left: 0; }
+
+
+/*GROUPING*/
+/*Solve floating problem - the clearfix*/
+.group:before,
+.group:after {
+  content:"";
+  display:table;
+}
+.group:after {
+  clear:both;
+}
+.group {
+    zoom:1; /* For IE 6/7 */
+}
+
+/*  GRID OF THREE  */
+.tile {
+  width: 32.26%;
+  background-color: red;
+  position: relative;
+  width: 128px;
+  height: 128px;
+} 
+.tile:hover{
+  background-color: lightpink;
+}
+.minitile {
+  width: 30%;
+  position: relative;
+  border: 1px dashed lightgray;
+  margin: 2px;
+  width: 55px;
+  height: 55px;
+} 
+/*TO auto size - DISABLED*/
+/*.tile:before{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}*/
+.xclass{
+  background-image: url('../images/X.png');
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.oclass{
+  background-image: url('../images/O.png');
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/*Style when hovered*/
+.hoverclass{
+  background-color: pink;
+}
+
+.lossClass{
+  opacity: 0.2;
+}
+
+.announcer{
+  z-index: 9999;
+  position: relative;
+  display: inline-table;
+  width: 350px;
+  height: 100px;
+  background-color: rgba(0,0,0,0.8);
+  margin:0;
+  border-radius: 10px;
+  top:-248px;
+  left: 23px;
+  color: white;
+  text-align: center;
+}
+.resetButton{
+  background-color: gray;
+  width: 50px;
+}
+.chatContainerBox{
+  clear: both;
+  z-index: 9999;
+  position: relative;
+  display: inline-table;
+  width: 395px;
+  height: 200px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  margin: 0px auto;
+}
+form.typeBox{
+  width: 200px;
+  margin: 5px auto;
+}
+input.typeBox {
+  height: 30px;
+  width: 200px;
+  font-size: 12px;
+  font-family: 'Courier';
+  background-image:url('../images/up.png');
+  opacity: 0.5;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: right; 
+  background-color: rgba(0,0,0,0.2);  
+  border-radius: 15px;
+}
+.section.group.chatBox{
+  width: 200px;
+  height: 480px;
+}
+div.chatContainerBox{
+  display: inline-block;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  vertical-align: middle;
+  font-family: 'Courier';
+  font-size: 12px;
+  text-align: left;
+  color: black;
+  line-height: 30px;
+  padding: 0 5px;
+  margin: 3px;
+  background-color: lightblue;
+}
+div.textRightAlign{
+  text-align: right;
+  background-color: lightgray;
+}
+span.chatUsername{
+  font-size: 7px;
+}
+div.userContainerBox{
+  display: inline-block;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  vertical-align: middle;
+  font-family: 'Courier';
+  font-size: 12px;
+  text-align: left;
+  color: black;
+  line-height: 30px;
+  padding: 0 5px;
+  margin: 3px;
+  background-color: lightgray;
+  float: left;
+}
+div.userContainerBox:hover{
+  background-color: lightgreen;
+}
+button.startButton{
+  height: 23px;
+  width: 100px;
+  font-size: 12px;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 5px;
+  background-color: white;
+  margin:0;
+}
+/*MOBILE DEVICE CUSTOM*/
+@media (max-width: 450px){
+  .section {
+    width: 350px;
+    margin: 0 auto;
+  }
+  .header{
+    font-size: 25px;
+  }
+  .tile{
+    width: 113px;
+    height: 113px;
+  }
+}
+/*MEDIUM SCREEN SIZE CUSTOM*/
+@media (max-width: 800px){
+  div{
+    font-size: 10px;
+  }
+  input{
+    height: 25px;
+    width: 162px;
+    font-size: 10px;
+    border-radius: 5px;
+    margin: 3px;
+  }
+  button{
+    height: 18px;
+    width: 165px;
+    font-size: 10px;
+    border-radius: 5px;
+    margin: 0 auto 3px auto;
+  }
+  .section{
+    width: 200px;
+  }
+
+  .announcer select{
+    width: 50px;
+    padding: 2px;
+    font-size: 10px;
+    height: 18px;
+  }
+  .header{
+    font-size: 17px;
+  }
+  .header.col.tile.score{
+    font-size: 10px;
+  }
+
+  /*  COLUMN SETUP  */
+  .col {
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+  /*  GRID OF THREE  */
+  .tile {
+    width: 64px;
+    height: 64px;
+  } 
+  .minitile {
+    margin: 1px;
+    width: 28px;
+    height: 28px;
+  } 
+
+  .announcer{
+    width: 175px;
+    height: 50px;
+    border-radius: 5px;
+    top:-124px;
+    left: 12px;
+  }
+  .resetButton{
+    width: 25px;
+  }
+  .chatContainerBox{
+    width: 197px;
+    height: 100px;
+    border-radius: 5px;
+  }
+  form.typeBox{
+    width: 100px;
+    margin: 2px auto;
+  }
+  input.typeBox {
+    height: 15px;
+    width: 100px;
+    font-size: 6px;
+    background-size: 15px 15px;
+    border-radius: 8px;
+  }
+  .section.group.chatBox{
+    width: 100px;
+    height: 240px;
+  }
+  div.chatContainerBox{
+    border-radius: 5px;
+    height: 15px;
+    width: 100px;
+    font-size: 6px;
+    line-height: 15px;
+    padding: 0 2px;
+    margin: 1px;
+  }
+  span.chatUsername{
+    font-size: 3px;
+  }
+  div.userContainerBox{
+    border-radius: 5px;
+    height: 15px;
+    width: 100px;
+    font-size: 6px;
+    line-height: 15px;
+    padding: 0 2px;
+    margin: 1px;
+  }
+  button.startButton{
+    height: 11px;
+    width: 50px;
+    font-size: 6px;
+    border-radius: 2px;
+  }
+}
