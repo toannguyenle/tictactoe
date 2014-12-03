@@ -3,11 +3,11 @@
 <head>
 </head>
   <!-- GOOGLE FONTS FOR NOUGHTS AND CROSSES Xs 'n Os -->
-  <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
   <!-- MAIN STYLESHEET -->
   <link rel="stylesheet" href="css/style.css">
   <!-- ANGULAR JS -->
-  <script src="script/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
   <!-- Firebase -->
   <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
   <!-- AngularFire -->
@@ -36,12 +36,14 @@
           ng-show="(gameContainer.FBgameManager.activePlayer==1)&&(gameContainer.FBplayer[0].playerID!=playerID)">
           JOIN
         </div>
-          <form class="typeBox">
-            <input maxlength="22" type="text" ng-model="userQuery" class="typeBox" placeholder="search user"/>
-          </form>
-        <div class="userContainerBox"
-        ng-repeat="u in allcomments | orderByPriority|filter:userQuery">
-          {{u.userName}}
+        <!-- MINI TICTACTOE FOR REFERENCE -->
+        <div class="col minitile"
+          ng-repeat="tile in gameContainer.FBgameBoard"
+          ng-class="{xclass: tile.status=='X', oclass:tile.status=='O', hoverclass: tile.status=='H', lossClass: tile.name=='lossClass'}"
+          ng-click="chooseTile(tile)"
+          ng-mouseenter="mouseEnterTile(tile)"
+          ng-mouseleave="mouseLeaveTile(tile)"
+          >
         </div>
         <div
           class="userContainerBox" 

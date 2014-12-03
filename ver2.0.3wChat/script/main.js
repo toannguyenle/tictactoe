@@ -2,26 +2,24 @@ var myTTTapp = angular.module('myTTTapp', ["firebase"]);
 // TICTACTOE CONTROLLER
 myTTTapp.controller('TTTCtrl', function ($scope,$firebase) {
 // Connect to Firebase database for game
-var gameRef = new Firebase("https://tttcg.firebaseio.com/TTT");
+var gameRef = new Firebase("https://tttcg.firebaseio.com/TTT0");
 $scope.remoteGameContainer = $firebase(gameRef);
 
 // Another database for CHAT
 var chatRef = new Firebase("https://tttcg.firebaseio.com/chat") ;
 $scope.allcomments = $firebase(chatRef.limit(13));
 
-// Decide who goes first - Default settings
-var firstPlayer=0;
-var secondPlayer=1;
 $scope.currentPlayer={
   userName:"",
-  userComment:""
+  userComment:"",
+  tilechoice:""
 };
 // TIMER to keep track of each player total play time, to be used as a tie breaker
 $scope.gameClock=0;
 // Player Info (name, score, time on a currentgame, current tile choice, current's turn)
 // $scope.player = [
-// {name:"",score:0,waitTime:0, tilechoice:"X", board:["0","0","0","0","0","0","0","0","0"], isNext:true},
-// {name:"",score:0,waitTime:0, tilechoice:"O", board:["0","0","0","0","0","0","0","0","0"], isNext:false}];
+// {name:"",score:0,waitTime:0, playerID:"", tilechoice:"X", board:["0","0","0","0","0","0","0","0","0"], isNext:true},
+// {name:"",score:0,waitTime:0, playerID:"", tilechoice:"O", board:["0","0","0","0","0","0","0","0","0"], isNext:false}];
 // Global Array to store gameBoard ID for each cell
 // $scope.gameBoard = [
 // {name:"c0",status:"0", pollNum:0},
@@ -56,6 +54,8 @@ $scope.playerID = 0;
 $scope.activePlayer = 0;
 // Game Status for rendering graphic and announcement
 $scope.isGameOver = false;
+// Winner ID
+var winnerID = "";
 // Tie in case
 var tie = false;
 // Winning Scenario Based on winningMoves index
@@ -68,8 +68,10 @@ $scope.winScene = "";
 //  2: first and so on spectator - only view mode and chat and poll mode
 // @param pollBoard: keep track of the amount of board and user tiles choose to assist player in making decision
 // $scope.gameManager = {
+//   activePlayer:0,
+//   firstPlayer:0,
+//   secondPlayer:1,
 //   playerNum:0,
-//   userName:[],
 //   pollBoard:["0","0","0","0","0","0","0","0","0"]
 // };
 //CONNECT TO DATABASE. ASSIGN UNIQUE GAMER ID TO USER - INITIALIZE GAME
@@ -100,13 +102,12 @@ gameRef.once('value', function(dataSnapshot) {
 );
 
 $scope.$watch('gameContainer', function() {}) ;
+
 $scope.updatePlayer = function(){
   // Add one more person to the game - First player need to check if they are the first
   $scope.gameContainer.FBgameManager.playerNum++;
   chatRef.push({userName:$scope.currentPlayer.userName, userComment:("I'm in.")});
   $scope.playerID = $scope.gameContainer.FBgameManager.playerNum;
-  // Start Recording play time for each player
-  $scope.gameClock = Date.now();
 };
 
 // START THE GAME
@@ -133,6 +134,8 @@ $scope.joinGame = function(){
     $scope.gameContainer.FBplayer[1].isNext = false;
     $scope.gameContainer.FBplayer[1].playerID = $scope.playerID;
     $scope.gameContainer.FBgameManager.activePlayer = 2;
+    // Start Recording play time for each player
+    $scope.gameClock = Date.now();
   }
 }
 // THE JUDGE
@@ -153,41 +156,42 @@ var judgeGame = function (obj){
 $scope.chooseTile = function(thisTile){
   // Time Between plays
   var deltaTime = Date.now()-$scope.gameClock;
-  // Winner ID - 0 for first player, 1 for second player
-  var winnerID = "";
   $scope.gameClock = Date.now();
+
   if ((thisTile.status=='H') && ($scope.gameContainer.FBplayer[$scope.gameContainer.FBcount % 2].playerID==$scope.playerID)) {
     // Alternate between noughts and crosses
     // FIRST MOVE
     if (($scope.gameContainer.FBcount % 2) == 0) {
-      thisTile.status = $scope.gameContainer.FBplayer[firstPlayer].tilechoice;
+      thisTile.status = $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.firstPlayer].tilechoice;
       // Update first player board
-      $scope.gameContainer.FBplayer[firstPlayer].board[this.$index] = 1;
+      $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.firstPlayer].board[this.$index] = 1;
       // Update time
-      $scope.gameContainer.FBplayer[firstPlayer].waitTime=deltaTime + $scope.gameContainer.FBplayer[firstPlayer].waitTime;
+      $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.firstPlayer].waitTime=deltaTime + $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.firstPlayer].waitTime;
     }
     // SECOND MOVE
     else 
       {
-      thisTile.status = $scope.gameContainer.FBplayer[secondPlayer].tilechoice;
+      thisTile.status = $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].tilechoice;
       // Update 2nd player board
-      $scope.gameContainer.FBplayer[secondPlayer].board[this.$index] = 1;
+      $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].board[this.$index] = 1;
       // Update time
-      $scope.gameContainer.FBplayer[secondPlayer].waitTime=deltaTime + $scope.gameContainer.FBplayer[secondPlayer].waitTime;
+      $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].waitTime=deltaTime + $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].waitTime;
     }
     // Let's find out the winner after every tile click - And only check after the 5th turn
     if ($scope.gameContainer.FBcount>=4){
+      console.log(judgeGame($scope.gameContainer.FBplayer[$scope.gameContainer.FBcount % 2].board));
       if (judgeGame($scope.gameContainer.FBplayer[$scope.gameContainer.FBcount % 2].board)) {
         announcer($scope.gameContainer.FBcount % 2);
       }
       else if ($scope.gameContainer.FBcount == 8) {
-        $scope.gameContainer.FBplayer[secondPlayer].waitTime <= $scope.gameContainer.FBplayer[secondPlayer].waitTime ?
-        announcer(secondPlayer) : announcer(firstPlayer); 
         tie = true;
+        $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].waitTime <= $scope.gameContainer.FBplayer[$scope.gameContainer.FBgameManager.secondPlayer].waitTime ?
+        announcer($scope.gameContainer.FBgameManager.secondPlayer) : announcer($scope.gameContainer.FBgameManager.firstPlayer); 
       }
     }
-    // Change to who is the next player
-    $scope.isYourTurn=!$scope.isYourTurn;
+    // Update who go next for HTML
+    $scope.gameContainer.FBplayer[$scope.gameContainer.FBcount % 2].isNext = false;
+    $scope.gameContainer.FBplayer[($scope.gameContainer.FBcount % 2)==0?1:0].isNext = true;
     // updatemove counter
     $scope.gameContainer.FBcount++;
   }
@@ -199,16 +203,13 @@ var announcer = function(winnerID){
   $scope.gameContainer.FBplayer[winnerID].score++;
   $scope.gameContainer.FBisGameOver = true;
   // Making sure the winner of the last game pick and play first
-  // In an event of a tie, than the order is reverse
   if (winnerID==0){
-    firstPlayer=1;
-    secondPlayer=0;
-    $scope.isYourTurn=false;
+    $scope.gameContainer.FBgameManager.firstPlayer=1;
+    $scope.gameContainer.FBgameManager.secondPlayer=0;
   }
   else {
-    firstPlayer=0;
-    secondPlayer=1;
-    $scope.isYourTurn=true;
+    $scope.gameContainer.FBgameManager.firstPlayer=0;
+    $scope.gameContainer.FBgameManager.secondPlayer=1;
   };
 };
 // RENDER BOARD WITH WINNING COMBINATION
@@ -244,6 +245,8 @@ $scope.reloadGame = function(){
   tie = false;
   $scope.winScene = "";
   $scope.gameContainer.FBisGameOver = false;
+  // Winner ID - 0 for first player, 1 for second player
+  var winnerID = "";
 };
 // Game TOTAL RESET
 $scope.resetGame = function(){
@@ -260,9 +263,13 @@ $scope.hardResetGame = function(){
   $scope.gameContainer.FBplayer[1].name = "...";
   $scope.gameContainer.FBplayer[0].isNext = true;
   $scope.gameContainer.FBplayer[1].isNext = false;
-  $scope.gameContainer.FBplayer[0].tilechoice = "X"
+  $scope.gameContainer.FBplayer[0].tilechoice = "X";
   $scope.gameContainer.FBplayer[1].tilechoice = "O";
+  $scope.gameContainer.FBplayer[0].playerID = "";
+  $scope.gameContainer.FBplayer[1].playerID = "";
   $scope.gameContainer.FBgameManager.activePlayer = 0;
+  $scope.gameContainer.FBgameManager.firstPlayer = 0;
+  $scope.gameContainer.FBgameManager.secondPlayer = 1;
 };
 //  MOUSE OVER to Change Color, only perform if mouse is still playable
 $scope.mouseEnterTile = function (thisTile){
